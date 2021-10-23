@@ -17,8 +17,12 @@ public class Class88_LinkedHashMap {
         Iterator it = s.iterator();
         while (it.hasNext()){
             Map.Entry me = (Map.Entry)it.next();
-            System.out.println("Id : "+me.getKey()+"\n"+"Name : "+me.getValue());
-            System.out.println("-----------------------------------------------");
+//            System.out.println("Id : "+me.getKey()+"\n"+"Name : "+me.getValue());
+//            System.out.println("-----------------------------------------------");
         }
+        Integer i1 = new Integer(10);
+        Integer i2 = new Integer(10);
+        System.out.println(i1 == i2);
+        System.out.println(i1.equals(i2));
     }
 }

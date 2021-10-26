@@ -1,38 +1,16 @@
 package com.company;
-
-class Falana{
-    private long id;
-    private int amount;
-    private String name,email;
-
-    public String getName() {
-        return name;
+public class Main{
+    public static void cls(){
+        try {
+            new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setId(long id){
-        this.id = id;
-    }
-    public long getId(){
-        return id;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public static void main(String[] args) throws Exception{
+        for (int i=0; i<10; i++){
+            Thread.sleep(1000);
+            System.out.println(i);
+        }
     }
 }

@@ -1,16 +1,22 @@
 package com.company;
+
+import java.util.Scanner;
+
 public class Main{
-    public static void cls(){
-        try {
-            new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
     public static void main(String[] args) throws Exception{
-        for (int i=0; i<10; i++){
-            Thread.sleep(1000);
-            System.out.println(i);
+        Scanner readinput = new Scanner(System.in);
+
+        String enterkey = "Hola";
+        System.out.print(enterkey);
+
+        enterkey = readinput.nextLine();
+        while(enterkey.equals("")){
+            enterkey = readinput.nextLine();
+            System.out.print(enterkey);
+
+            if(!enterkey.equals("")) {
+                break;
+            }
         }
     }
 }

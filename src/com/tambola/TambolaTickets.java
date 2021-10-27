@@ -5,14 +5,13 @@ import java.util.Iterator;
 
 public class TambolaTickets{
 
-    static HashSet<Integer> hashSet;
+    static HashSet<Integer> hashSet = new HashSet<>();
     static int min = 1, max = 90;
-    static int  in;
 
+    // Method of generate ticket number
     static public void genRanNoTicket(){
-        hashSet = new HashSet<>();
         while (hashSet.size() != 15) {
-            in =(int)(Math.random() * (max - min + 1) + min);
+            int in =(int)(Math.random() * (max - min + 1) + min);
             hashSet.add(in);
         }
         Iterator<Integer> it = hashSet.iterator();
@@ -30,7 +29,7 @@ public class TambolaTickets{
 
     public static void main(String[] args) {
         TambolaTickets.genRanNoTicket();
-
+//        TambolaTickets.genRanNoTicket();
     }
 }
 

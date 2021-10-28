@@ -3,99 +3,110 @@ package com.tambola;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
-public class Checker{
+public class Checker implements Runnable{
 
-    static ArrayList <Integer>allBoardValues;
     static FileWriter board;
 
-
-    static public void showBoardValues(){
-        int n = 1;
-        System.out.println("\n\n**-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*Total Number Store in TambolaTable*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**\n");
-        for (Integer integer : allBoardValues) {
-            System.out.print(integer + ", ");
-            if (n % 40 == 0) {
-                System.out.println();
-            }
-            n++;
-        }
-    }
-
-    public static void main(String[] args) {
-
-        TambolaTickets.genRanNoTicket();
-
+    public static boolean checker(HashSet<Integer>ticket1,HashSet<Integer>ticket2) {
         try {
             int boardValue;
             System.out.println();
-            allBoardValues = new ArrayList<>();
+            TambolaBoard.allBoardValues = new ArrayList<>();
             board = new FileWriter("C:\\Users\\Jadon\\IdeaProjects\\FirstJavaProgramCWH\\src\\com\\tambola\\StoreRanNo.txt");
-            int i=0;
-            int count = 1;
+            int i = 0;
             //-----------------------------------------------------
             Scanner sc = new Scanner(System.in);
             System.out.println("Do you want to User interaction : y/n");
-            String ans = sc.next();
-            TambolaBoard.tambolaBoard();
-            if (ans.equals("y") || ans.equals("Y")){
+            String ans = sc.nextLine();
+
+            if (ans.equals("y") || ans.equals("Y")) {
+                int count1 = 1;
+                int count2 = 1;
                 String enterkey;
                 System.out.println();
-                do{
+                do {
                     enterkey = sc.nextLine();
-                    if (!enterkey.equals("")){
-                        System.err.println("You didn't press the right key! Please Restart the game");
+                    if (!enterkey.equals("")) {
+                        System.err.println("\nYou didn't press the right key! Please Restart the game");
                         break;
                     }
-                    boardValue= Integer.parseInt(TambolaBoard.number_generator_arr[i]);
-                    allBoardValues.add(boardValue);
-                    board.write(boardValue+"\n");
+                    boardValue = Integer.parseInt(TambolaBoard.number_generator_arr[i]);
+                    TambolaBoard.allBoardValues.add(boardValue);
                     System.out.println(boardValue);
-                    if (TambolaTickets.TicketValues.contains(boardValue)){
-                        System.out.println(boardValue+" is stored in Ticket");
-                        if (count == 15){
-                            System.out.println("\n Housie! Congratulation you won the match \n");
+                    if (ticket1.contains(boardValue)) {
+                        System.out.println(boardValue + " is stored in Ticket1");
+                        if (count1 == 15) {
+                            System.out.println("\n Housie!  Congratulation Player1 you won the match \n");
                             break;
                         }
-                        count++;
+                        count1++;
+                    }
+                    if (ticket2.contains(boardValue)) {
+                        System.out.println(boardValue + " is stored in Ticket2");
+                        if (count2 == 15) {
+                            System.out.println("\n Housie! Congratulation Player2 you won the match \n");
+                            break;
+                        }
+                        count2++;
                     }
                     i++;
                     System.out.println("===============================================================");
-                }while (enterkey.equals("") && i != 90);
-            }
-            else if (ans.equals("n") || ans.equals("N")){
-                while (i != 90){
-                    boardValue= Integer.parseInt(TambolaBoard.number_generator_arr[i]);
-                    allBoardValues.add(boardValue);
-                    board.write(boardValue+"\n");
-                Thread.sleep(100);
+                } while (i != 90);
+            } else if (ans.equals("n") || ans.equals("N")) {
+                int count1 = 1;
+                int count2 = 1;
+                while (i != 90) {
+                    boardValue = Integer.parseInt(TambolaBoard.number_generator_arr[i]);
+                    TambolaBoard.allBoardValues.add(boardValue);
+                    Thread.sleep(100);
                     System.out.println(boardValue);
-                    if (TambolaTickets.TicketValues.contains(boardValue)){
-                        System.out.println(boardValue+" is stored in Ticket");
-                        if (count == 15){
-                            System.out.println("\n Housie! Congratulation you won the match \n");
+                    if (ticket1.contains(boardValue)) {
+                        System.out.println(boardValue + " is stored in Ticket1");
+                        if (count1 == 15) {
+                            System.out.println("\n Housie!  Congratulation Player1 you won the match \n");
                             break;
                         }
-                        count++;
+                        count1++;
+                    }
+                    if (ticket2.contains(boardValue)) {
+                        System.out.println(boardValue + " is stored in Ticket2");
+                        if (count2 == 15) {
+                            System.out.println("\n Housie! Congratulation Player2 you won the match \n");
+                            break;
+                        }
+                        count2++;
                     }
                     i++;
                     System.out.println("===============================================================");
                 }
+            } else if (ans.equals("")){
+                System.err.println("You can't use Enter key at this time! Please Restart the game");
+            }else {
+                System.out.println("You entered wrong key");
             }
-            else {
-                System.err.println("You have given wrong answer! Please Restart the game");
-            }
-            TambolaTickets.genRanNoTicket();
-            Checker.showBoardValues();
-        }catch (IOException | InterruptedException  e){
+            board.write(TambolaBoard.allBoardValues + "\n");
+            TambolaBoard.showBoardValues();
+
+            System.out.print("\n ---------Player1 Ticket--------"+"\n | ");
+            TambolaTickets.showTicket(Dealer.ticket1);
+            System.out.print(" ---------Player2 Ticket--------"+"\n | ");
+            TambolaTickets.showTicket(Dealer.ticket2);
+
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 board.close();
-            }catch (IOException e1){
+            } catch (IOException e1) {
                 e1.printStackTrace();
             }
         }
+        return true;
+    }
+    public void run(){
+        checker(Dealer.ticket1,Dealer.ticket2);
     }
 }

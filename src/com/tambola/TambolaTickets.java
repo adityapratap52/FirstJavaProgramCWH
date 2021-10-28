@@ -5,18 +5,28 @@ import java.util.Iterator;
 
 public class TambolaTickets{
 
-    static HashSet<Integer> TicketValues = new HashSet<>();
     static int min = 1, max = 90;
 
+    public void setTicket1(HashSet<Integer>ticket){
+        Dealer.ticket1 = ticket;
+    }
+    public void setTicket2(HashSet<Integer>ticket){
+        Dealer.ticket2 = ticket;
+    }
+
     // Method of generate ticket number
-    static public void genRanNoTicket(){
-        while (TicketValues.size() != 15) {
+    static public HashSet<Integer> genRanNoTicket(){
+        HashSet<Integer> ticket = new HashSet<>();
+        while (ticket.size() != 15 ) {
             int value =(int)(Math.random() * (max - min + 1) + min);
-            TicketValues.add(value);
+            ticket.add(value);
         }
-        Iterator<Integer> it = TicketValues.iterator();
+        return ticket;
+    }
+
+    static public void showTicket(HashSet<Integer> ticket){
+        Iterator<Integer> it = ticket.iterator();
         int count = 1;
-        System.out.print(" -----------Your Ticket----------"+"\n | ");
         while (it.hasNext()){
             int tickValue = it.next();
             System.out.printf("%3d  |",tickValue);
@@ -25,11 +35,6 @@ public class TambolaTickets{
             count++;
         }
         System.out.println(" --------------------------------");
-    }
-
-    public static void main(String[] args) {
-        TambolaTickets.genRanNoTicket();
-//        TambolaTickets.genRanNoTicket();
     }
 }
 

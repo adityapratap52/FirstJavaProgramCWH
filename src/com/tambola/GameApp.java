@@ -10,6 +10,5 @@ public class GameApp {
         Checker ch = new Checker();
         Thread checker = new Thread(ch);
         checker.start();
-        checker.join();
     }
 }

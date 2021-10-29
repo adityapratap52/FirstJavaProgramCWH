@@ -1,10 +1,13 @@
 package com.tambola;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Dealer implements Runnable{
     static HashSet<Integer> ticket1 = new HashSet<>();
     static HashSet<Integer> ticket2 = new HashSet<>();
+    static String[] number_generator_arr;
+    static ArrayList<Integer> allBoardValues;
 
     public void run(){
         TambolaTickets tambolaTickets = new TambolaTickets();

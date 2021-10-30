@@ -6,18 +6,17 @@ import java.util.HashSet;
 public class Dealer implements Runnable{
     static HashSet<Integer> ticket1 = new HashSet<>();
     static HashSet<Integer> ticket2 = new HashSet<>();
-    static String[] number_generator_arr;
     static ArrayList<Integer> allBoardValues;
 
     public void run(){
-        TambolaTickets tambolaTickets = new TambolaTickets();
-        tambolaTickets.setTicket1(TambolaTickets.genRanNoTicket());             // Generate Ticket 1
-        tambolaTickets.setTicket2(TambolaTickets.genRanNoTicket());             // Generate Ticket 2
-        TambolaBoard.ranNoStore();                                             // Generate RandNo
+        Player player = new Player();
+        player.setTicket1(Player.generateTicket());             // Generate Ticket 1
+        player.setTicket2(Player.generateTicket());             // Generate Ticket 2
+        TambolaBoard.randomNoGenerator();                                             // Generate RandNo
 
         System.out.print(" ---------Player1 Ticket--------"+"\n | ");
-        TambolaTickets.showTicket(ticket1);
+        Player.showTicket(ticket1);
         System.out.print(" ---------Player2 Ticket--------"+"\n | ");
-        TambolaTickets.showTicket(ticket2);
+        Player.showTicket(ticket2);
     }
 }

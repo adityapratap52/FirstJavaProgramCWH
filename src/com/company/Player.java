@@ -3,8 +3,6 @@ package com.company;
 
 //  |*| Using Simple Array
 
-import com.tambola.TambolaBoard;
-
 public class Player {
     public static void main(String[] args) {
 //        do {

@@ -2,13 +2,13 @@ package com.tambola;
 
 public class GameApp {
     public static void main(String[] args) throws InterruptedException{
-        Dealer deal = new Dealer();
-        Thread dealer = new Thread(deal);
-        dealer.start();
-        dealer.join();
+        Dealer dealer = new Dealer();
+        Thread dealerThread = new Thread(dealer);
+        dealerThread.start();
+        dealerThread.join();
 
-        Checker ch = new Checker();
-        Thread checker = new Thread(ch);
-        checker.start();
+        Checker checker = new Checker();
+        Thread checkerThread = new Thread(checker);
+        checkerThread.start();
     }
 }

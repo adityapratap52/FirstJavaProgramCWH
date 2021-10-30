@@ -8,22 +8,22 @@ import java.util.Scanner;
 
 public class Checker implements Runnable{
 
-    static FileWriter store_RanNo_In_File;
-    static int i;
-    static int count1;
-    static int count2;
-    static String ans;
+    static FileWriter storeInFile;
+    static int loopCycle;
+    static int countPlayer1;
+    static int countPlayer2;
+    static String userAnswer;
 
     static boolean comparing(HashSet<Integer>ticket1,HashSet<Integer>ticket2){
 
         int boardValue;
 
-        boardValue = Integer.parseInt(Dealer.number_generator_arr[i]);
+        boardValue = Integer.parseInt(TambolaBoard.storeRandomNumber[loopCycle]);
         Dealer.allBoardValues.add(boardValue);
 
-        if (ans.equals("n") || ans.equals("N")){
+        if (userAnswer.equals("n") || userAnswer.equals("N")){
             try {
-                Thread.sleep(100);
+                Thread.sleep(500);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
@@ -32,60 +32,60 @@ public class Checker implements Runnable{
         System.out.println(boardValue);
         if (ticket1.contains(boardValue)) {
             System.out.println(boardValue + " is stored in Ticket1");
-            if (count1 == 15) {
+            if (countPlayer1 == 15) {
                 System.out.println("\n Housie!  Congratulation Player1 you won the match \n");
                 return false;
             }
-            count1++;
+            countPlayer1++;
         }
         if (ticket2.contains(boardValue)) {
             System.out.println(boardValue + " is stored in Ticket2");
-            if (count2 == 15) {
+            if (countPlayer1 == 15) {
                 System.out.println("\n Housie! Congratulation Player2 you won the match \n");
                 return false;
             }
-            count2++;
+            countPlayer2++;
         }
         return true;
     }
 
-    public static boolean checker() {
+    public static void checker() {
         try {
-            boolean output_After_Comparing = true;
-            count1 = 1;
-            count2 = 1;
-            i = 0;
+            boolean outputAfterComparing = true;
+            countPlayer1 = 1;
+            countPlayer2 = 1;
+            loopCycle = 0;
             Dealer.allBoardValues = new ArrayList<>();
-            store_RanNo_In_File = new FileWriter("C:\\Users\\Jadon\\IdeaProjects\\FirstJavaProgramCWH\\src\\com\\tambola\\StoreRanNo.txt");
+            storeInFile = new FileWriter("C:\\Users\\Jadon\\IdeaProjects\\FirstJavaProgramCWH\\src\\com\\tambola\\StoreRandomNumber.txt");
 
             System.out.println();
-            //-----------------------------------------------------
+
             Scanner sc = new Scanner(System.in);
             System.out.println("Do you want to User interaction : y/n");
-            ans = sc.nextLine();
+            userAnswer = sc.nextLine();
 
-            switch (ans) {
+            switch (userAnswer) {
                 case "y":
                 case "Y":
 
-                    String enterkey;
+                    String enterKey;
                     do {
-                        enterkey = sc.nextLine();
-                        if (!enterkey.equals("")) {
+                        enterKey = sc.nextLine();
+                        if (!enterKey.equals("")) {
                             System.err.println("\nYou can't press the other keywords! Please Restart the game");
                             System.exit(0);
                         }
-                        output_After_Comparing = comparing(Dealer.ticket1, Dealer.ticket2);
-                        i++;
+                        outputAfterComparing = comparing(Dealer.ticket1, Dealer.ticket2);
+                        loopCycle++;
                         System.out.println("===============================================================");
-                    } while (i != 90 && output_After_Comparing);
+                    } while (loopCycle != 90 && outputAfterComparing);
                     break;
 
                 case "n":
                 case "N":
-                    while (i != 90 && output_After_Comparing) {
-                        output_After_Comparing = comparing(Dealer.ticket1, Dealer.ticket2);
-                        i++;
+                    while (loopCycle != 90 && outputAfterComparing) {
+                        outputAfterComparing = comparing(Dealer.ticket1, Dealer.ticket2);
+                        loopCycle++;
                         System.out.println("===============================================================");
                     }
                     break;
@@ -98,24 +98,23 @@ public class Checker implements Runnable{
                     System.err.println("You entered wrong key");
                     System.exit(0);
             }
-            store_RanNo_In_File.write(Dealer.allBoardValues + "\n");
-            TambolaBoard.showBoardValues();
+            storeInFile.write(Dealer.allBoardValues + "\n");
+            TambolaBoard.showStoreValues();
 
             System.out.print("\n ---------Player1 Ticket--------"+"\n | ");
-            TambolaTickets.showTicket(Dealer.ticket1);
+            Player.showTicket(Dealer.ticket1);
             System.out.print(" ---------Player2 Ticket--------"+"\n | ");
-            TambolaTickets.showTicket(Dealer.ticket2);
+            Player.showTicket(Dealer.ticket2);
 
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                store_RanNo_In_File.close();
+                storeInFile.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         }
-        return true;
     }
     public void run(){
         checker();

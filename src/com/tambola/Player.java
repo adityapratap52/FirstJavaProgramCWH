@@ -3,7 +3,7 @@ package com.tambola;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class TambolaTickets{
+public class Player{
 
     static int min = 1, max = 90;
 
@@ -15,7 +15,7 @@ public class TambolaTickets{
     }
 
     // Method of generate ticket number
-    static public HashSet<Integer> genRanNoTicket(){
+    static public HashSet<Integer> generateTicket(){
         HashSet<Integer> ticket = new HashSet<>();
         while (ticket.size() != 15 ) {
             int value =(int)(Math.random() * (max - min + 1) + min);
@@ -25,14 +25,14 @@ public class TambolaTickets{
     }
 
     static public void showTicket(HashSet<Integer> ticket){
-        Iterator<Integer> it = ticket.iterator();
-        int count = 1;
-        while (it.hasNext()){
-            int tickValue = it.next();
-            System.out.printf("%3d  |",tickValue);
-            if (count%5 == 0) System.out.println();
-            if(count%5 == 0 && count != 15) System.out.print(" | ");
-            count++;
+        Iterator<Integer> iterateToTicket = ticket.iterator();
+        int ticketCount = 1;
+        while (iterateToTicket.hasNext()){
+            int ticketValue = iterateToTicket.next();
+            System.out.printf("%3d  |",ticketValue);
+            if (ticketCount%5 == 0) System.out.println();
+            if(ticketCount%5 == 0 && ticketCount != 15) System.out.print(" | ");
+            ticketCount++;
         }
         System.out.println(" --------------------------------");
     }

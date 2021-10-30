@@ -5,24 +5,26 @@ import java.util.Collections;
 
 public class TambolaBoard {
 
-    static public void ranNoStore(){
-        Dealer.number_generator_arr = new String[90];
+    static String[] storeRandomNumber;
 
-        for (int i = 0; i < Dealer.number_generator_arr.length ; i++) {
-            Dealer.number_generator_arr[i] = (i+1)+"";
+    static public void randomNoGenerator(){
+        storeRandomNumber = new String[90];
+
+        for (int i = 0; i < storeRandomNumber.length ; i++) {
+            storeRandomNumber[i] = (i+1)+"";
         }
-        Collections.shuffle(Arrays.asList(Dealer.number_generator_arr));
+        Collections.shuffle(Arrays.asList(storeRandomNumber));
     }
 
-    static public void showBoardValues(){
-        int n = 1;
+    static public void showStoreValues(){
+        int number = 1;
         System.out.println("\n\n**-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*Total Number Store in TambolaTable*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**\n");
         for (Integer integer : Dealer.allBoardValues) {
             System.out.print(integer + ", ");
-            if (n % 40 == 0) {
+            if (number % 40 == 0) {
                 System.out.println();
             }
-            n++;
+            number++;
         }
     }
 }
